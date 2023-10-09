@@ -1,0 +1,384 @@
+'''
+CSC1024 PROGRAMMING PRINCIPLES
+
+STUDENT NAME: LIM JIA QUAN
+STUDENT ID : 21018494
+PROGRAM : BSDA
+'''
+
+'''
+CSC1024 PROGRAMMING PRINCIPLES
+
+STUDENT NAME: LIM JIA QUAN
+STUDENT ID : 21018494
+PROGRAM : BSDA
+'''
+
+# A Master Mind Computer Game
+
+# List of Shapes
+# Predefine what shapes are there in this game
+# C = Circle, T = Triangle, R = Rectangle, O = Oval, H = Heart, S = Square
+shape = ['C', 'T', 'R', 'O', 'H', 'S']
+
+# Function_1: Game Main Menu
+def game_menu():
+  print('''
+      
+      ░██╗░░░░░░░██╗███████╗██╗░░░░░░█████╗░░█████╗░███╗░░░███╗███████╗  
+      ░██║░░██╗░░██║██╔════╝██║░░░░░██╔══██╗██╔══██╗████╗░████║██╔════╝  
+      ░╚██╗████╗██╔╝█████╗░░██║░░░░░██║░░╚═╝██║░░██║██╔████╔██║█████╗░░  
+      ░░████╔═████║░██╔══╝░░██║░░░░░██║░░██╗██║░░██║██║╚██╔╝██║██╔══╝░░  
+      ░░╚██╔╝░╚██╔╝░███████╗███████╗╚█████╔╝╚█████╔╝██║░╚═╝░██║███████╗  
+      ░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝  
+
+                              ████████╗░█████╗░  
+                              ╚══██╔══╝██╔══██╗  
+                              ░░░██║░░░██║░░██║  
+                              ░░░██║░░░██║░░██║  
+                              ░░░██║░░░╚█████╔╝  
+                              ░░░╚═╝░░░░╚════╝░  
+
+███╗░░░███╗░█████╗░░██████╗████████╗███████╗██████╗░███╗░░░███╗██╗███╗░░██╗██████╗░
+████╗░████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗████╗░████║██║████╗░██║██╔══██╗
+██╔████╔██║███████║╚█████╗░░░░██║░░░█████╗░░██████╔╝██╔████╔██║██║██╔██╗██║██║░░██║
+██║╚██╔╝██║██╔══██║░╚═══██╗░░░██║░░░██╔══╝░░██╔══██╗██║╚██╔╝██║██║██║╚████║██║░░██║
+██║░╚═╝░██║██║░░██║██████╔╝░░░██║░░░███████╗██║░░██║██║░╚═╝░██║██║██║░╚███║██████╔╝
+╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═════╝░   
+                     
+                        ~ Time to crack your head ~              
+                                                                     Created By: 
+                                                                        Jia Quan     
+    MAIN MENU
+    [1] Instruction on How To Play    
+    [2] Start Game    
+        ''')
+
+  repeat_menu = 'y'    # To initiate repeat_menu while loop
+  while repeat_menu == 'y':
+    user_decision = input('-> Enter [1] or [2]: ')
+
+    if user_decision == '1':
+      repeat_menu = 'n'
+      instruction()    # Run Function_2 to display instruction to USER
+
+    elif user_decision == '2':
+      repeat_menu = 'n'
+    
+    else:    # Error checking to make sure USER input 1 or 2 only
+      print('Invalid Selection bro/sis! Please enter [1] or [2] only\n')
+
+
+# Function_2: Game Instruction
+def instruction():
+  print('''
+================================== HOW TO PLAY ==================================
+
+| Shape List: C = Circle, T = Triangle, R = Rectangle, O = Oval, H = Heart, S = Square
+|
+| 1. There are a total of 6 shapes. 
+|
+| 2. This genius computer will generate a code using only 4 shape out of 6 shape.
+|    ALERT: THE SHAPE CAN BE REPEATED! (Example = CCTT)
+|
+| 3. You are required to guess the code in the correct order and shape.
+|
+| 4. Only enter the shape from the list of shapes given.
+|
+| 5. You are required to only enter the first letter of the shape.
+|    EXAMPLE = CTRO 
+|
+| 6. After each entry, the computer will provide you 2 crucial information. 
+|    i . Number of correct shape(s) in the correct place 
+|    ii. Number of correct shape(s) in the wrong place 
+|
+| 7. You have only 10 tries to break the code.
+|
+| 8. If you SUCCESSFULLY crack the code within 10 tries, you win 100,000,000$.
+|
+| 9. If you FAIL, no money for you. 
+|
+|    ~ GOOD LUCK & HAVE FUN ~
+        ''')
+  # After USER press Enter, it will proceed to Function_3
+  user_decision = input('-> Press ENTER to start game.')
+
+
+# Function_3: Initiate Game Starting...
+def start_game():
+  print('')
+  print('-'* 45)
+  print('''|                                           |
+|           THE GAME BEGINS NOW             | 
+|                                           |
+|     ...SHHH, I'm generating a code...     |
+|                                           |
+|             -CODE GENERATED-              |
+|                                           |''')
+  print('-'* 45)
+  start = input('\n-> Press ENTER to START GAME. ')
+
+
+# Function_4: Randomly select 4 type of shapes out of 6 shapes
+def random(shape):
+  import random    # Import Python random module 
+  choice = random.choices(shape, k = 4)    # Apply choices() method to randomize shapes selection
+  return choice
+
+
+# Function_5: Prompt USER to input guesses
+def guess_input():
+  repeat = 'y'    # To initiate repeat while loop
+  while repeat == 'y':
+    user_guess = []    # Empty user_guess list to store USER input
+    guess = input('-> Enter the code: ')
+
+    # Error checking for valid length and character USER input 
+    # Check if USER enter 4 shapes
+    if len(guess) == 4:
+      repeat = 'n'
+      guess_cap = guess.upper()    # Capatalize USER input
+
+      # Check if USER enter the available shapes from the shape list
+      for x in guess_cap:
+        if x in shape:
+          user_guess.append(x)    # If all contains in shape list, append to user_guess list
+        else:
+          print('Invalid Code. Please only enter the shape from the shape list!\n')
+          repeat = 'y'    # Repeat loop to prompt USER enter guess again
+          break
+
+    else:
+      print('Invalid Code. Please enter a code with 4 shapes!\n')
+
+  return user_guess
+
+  
+# Function_6: Cross check the USER guess with the computer generated SECRET CODE
+def checker(secret_code, user_guess):
+  code = secret_code
+  user_guess = user_guess
+
+  # Duplicate the code_list and guess_list to check and modified
+  code_list = code[:]
+  guess_list = user_guess[:]
+
+  correct_shape = 0
+  correct_shape_place = 0
+
+  # Check the number of correct shape in correct place
+  for x in range(4):
+    if code_list[x] == guess_list[x]:
+      # Overwrite the values in the list to prevent from duplicated counting
+      code_list[x] = 'no code'
+      guess_list[x] = 'no guess'
+      correct_shape_place += 1
+
+  # Check the number of correct shape in wrong place
+  for x in range(4):
+    for y in range(4):
+      if code_list[x] == guess_list[y]:
+        # Overwrite the values in the list to prevent from duplicated counting
+        code_list[x] = 'no code'
+        guess_list[y] = 'no guess'
+        correct_shape += 1
+
+  correct = [correct_shape_place, correct_shape]
+  return correct
+
+
+# Function_7: Provide hint to user after each guess
+def information(attempt, correct, history_input, history_feedback):
+    print('''  
+============================================================================
+|             YOUR                |  Correct Shape in  | Correct Shape in  |   
+|            GUESSES              |    Correct Place   |   Wrong Place     |  
+============================================================================ ''')
+
+    # Print the current and history feedback from the list
+    for x in range(0, attempt):
+      print(f'|    [{history_input[x][0]}]    [{history_input[x][1]}]    [{history_input[x][2]}]    [{history_input[x][3]}]     |          {history_feedback[x][0]}         |          {history_feedback[x][1]}        |')
+      print('=' * 76)
+
+
+# Function_8: To display hishscore table to USER
+def highscore_menu():
+  print('''  
+
+▒█░▒█ ▀█▀ ▒█▀▀█ ▒█░▒█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ 
+▒█▀▀█ ▒█░ ▒█░▄▄ ▒█▀▀█ ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ 
+▒█░▒█ ▄█▄ ▒█▄▄█ ▒█░▒█ ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄
+            =========================
+            |    Your Best Score    |  
+            |    (Least Attempt)    |  
+            =========================''')
+  print(f"            |           {user_highscore[0]}           |")
+  print('            =========================')
+  print(input('\n-> Press Enter to return: '))
+
+  
+# Function_9: End Game Menu
+def endgame_menu():
+  print('''
+    MAIN MENU
+    [1] Replay   
+    [2] View Highscore
+    [3] Exit Game'''  )
+  
+  
+#Actual Game Interface
+replay = True    # To enter into a loop when to replay the game
+user_highscore = [11]
+
+while replay == True:  
+  game_menu()     # Run Function_1
+  start_game()    # Run Function_3
+  secret_code = random(shape)    # Secret Code is generated via Function 4
+  
+  print(secret_code)    # REMOVE THE HASH BEFORE print(secret_code) TO REVEAL ANSWER FOR ASSIGNMENT CHECKING PURPOSES.
+  
+  # Empty lists to collect and display user input via Function 7
+  history_input = []    
+  history_feedback = []
+
+  attempt = 1      # To keep track USER Attempts
+  highscore = 1    # To keep track USER highscore
+  
+  # USER will be able to guess for 10 tries
+  while attempt <= 10:
+    print('\n| Break the code')
+    print('| Shape List: C = Circle, T = Triangle, R = Rectangle, O = Oval, H = Heart, S = Square ')
+    print('| Example of CODE = CCTR')
+    print(f"| Attempt: {attempt}")    # To show USER the number of attempt USER is on
+    
+    user_guess = guess_input()    # Run Function_5 to prompt USER to input guess
+
+    history_input.append(user_guess)              # Append USER guess to history list
+    correct = checker(secret_code, user_guess)    # Run Function_6 to check if USER guess matches Secret Code
+    history_feedback.append(correct)              # Append the correct shape and position information to feedback list 
+
+    # If the guess is correct, USER win the game
+    if correct[0] == 4:
+      user_highscore.append(highscore)    #Append USER's highscore to list
+      user_highscore.sort()    #Sort user_highscore list in accending order
+      print(f"\nThe correct code is [{secret_code[0]}] [{secret_code[1]}] [{secret_code[2]}] [{secret_code[3]}]!")
+      print('''
+    |=================|
+    |    YOU  WIN!    |
+    |=================|   
+ Here is your 100,000,000$. 
+            ''')
+      print(f"Congratulation! You took {attempt} attempt to crack the code.")
+      break    # Break the current while attemp<=10 loop
+
+    # Display the hints to USER via Function_7 and proceed to next attempt
+    else:
+      information(attempt, correct, history_input, history_feedback)
+      attempt += 1      #Update USER's attemp count
+      highscore += 1    #Update USER's highscore count
+
+    # USER losses the game on the 11th attempt
+    if attempt == 11:
+      print(f"\nThe correct code is [{secret_code[0]}] [{secret_code[1]}] [{secret_code[2]}] [{secret_code[3]}].")
+      print('''
+    |=================|
+    |    GAME OVER    |
+    |=================| 
+            ''')
+
+  endgame_menu()    # Run Function_9 to display End Game Menu
+  repeat_endgame_menu = 'y'    # To initiate repeat_endgame_menu while loop
+  while repeat_endgame_menu == 'y':
+    endgame_decision = input('\n-> Enter [1], [2] or [3]: ')    # Prompt USER to enter decision
+
+    if endgame_decision == '1':
+      repeat_endgame_menu = 'n'
+      replay = True    # Repeat the code from line 233
+
+    elif endgame_decision == '2':
+      highscore_menu()    #Run Function_8 to display highscore table
+      endgame_menu()      #Run Function_9 to display End Game Menu
+      repeat_endgame_menu = 'y'    
+      
+
+    elif endgame_decision == '3':
+      repeat_exit_confirm = 'y'
+      exit_confirm = input('\nAre you sure you want to EXIT GAME? [Y/N]: ')
+      
+      while repeat_exit_confirm == 'y':
+        if exit_confirm == 'n' or exit_confirm == 'N':
+          repeat_exit_confirm = 'n'
+          endgame_menu()    #Run Function_9 to display End Game Menu   
+        
+        elif exit_confirm == 'y' or exit_confirm == 'Y':
+          repeat_exit_confirm = 'n'
+          print('''
+      _____________¶¶¶¶¶¶¶
+      ___________¶¶¶______¶¶¶
+      _________¶¶¶___________¶¶
+      ________¶¶______________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶
+      _______¶¶___________________¶_______¶¶¶¶¶
+      ______¶¶________________________________¶¶¶
+      _____¶¶___________________________________¶¶
+      ____¶¶___________________¶¶________________¶¶
+      ____¶¶___________________¶¶_________________¶
+      ___¶¶____________________¶__________________¶
+      ___¶¶___¶¶__________________________________¶
+      __¶¶__¶_¶¶¶¶¶_______________________________¶¶
+      __¶¶_¶¶¶¶¶¶¶¶¶______________________________¶¶¶
+      __¶__¶¶¶¶¶¶¶¶¶______________________________¶¶¶
+      __¶_¶¶¶¶¶¶¶¶¶¶¶¶___________________________¶¶
+      __¶_¶¶¶_¶¶¶_¶¶_¶¶_________________________¶¶
+      __¶_¶¶_¶¶¶¶¶¶¶¶_¶_______________________¶¶
+      __¶_¶¶__¶¶¶¶¶¶¶_¶¶___¶¶______________¶¶¶¶
+      __¶_¶¶__¶¶¶¶¶¶¶_¶¶____¶___________¶¶¶¶
+      __¶_¶¶¶¶¶¶¶__¶¶_¶¶_____¶¶¶¶___¶¶¶¶¶
+      ___¶_¶¶¶¶¶¶__¶¶_¶__________¶¶¶¶
+      ___¶¶__¶¶¶¶¶¶¶__¶¶¶¶______¶¶¶
+      ____¶¶___¶¶¶___¶¶¶¶¶¶____¶¶
+      _____¶¶¶_____¶¶¶____¶_____¶¶¶
+      ________¶¶¶¶¶¶_____¶¶¶¶¶¶¶¶¶
+      ____________________¶¶_____¶¶
+      ____________________¶_______¶¶
+      ____________________¶________¶¶
+      ___________________¶¶_________¶¶
+      ___________________¶____¶¶_____¶¶
+      __________________¶¶____¶¶______¶¶
+      __________________¶_¶____¶_______¶¶
+      _________________¶¶_¶____¶¶______¶¶
+      ___________¶¶¶¶__¶¶_¶_____¶______¶¶
+      ____________¶¶¶¶¶¶¶_¶_____¶______¶¶
+      _____________¶¶__¶_¶______¶_____¶¶¶___¶¶¶
+      _______________¶¶¶_¶___¶__¶_____¶¶__¶¶¶_¶¶
+      _____________¶¶__¶_¶¶__¶_¶¶___¶¶___¶¶____¶¶
+      ____________¶¶¶¶__¶_¶¶¶¶¶_____¶¶__¶¶_____¶¶
+      ___________¶¶__¶¶¶¶____________¶¶¶_______¶¶
+      ___________¶¶___¶¶____¶¶¶¶¶_____¶_____¶_¶¶
+      ____________¶________¶____¶____________¶¶
+      ____________¶_______¶¶____¶¶______¶¶___¶¶
+      ____________¶¶_______¶¶___¶¶________¶¶¶¶
+      _____________¶¶_______¶¶_¶¶_________¶¶
+      _____________¶¶__¶¶____¶¶_________¶¶
+      ______________¶¶_¶¶_¶__¶_______¶¶¶¶
+      _______________¶¶¶__¶¶¶¶¶__¶¶¶¶¶
+      _________________¶¶¶¶¶__¶¶¶¶¶
+      Thank You for playing! GoodBye for now.
+      -------------Program Ended-------------''')
+          print(input('\n-> Enter to EXIT GAME'))
+          repeat_endgame_menu = 'n'
+          replay = False    # Exit main while loop and END program
+
+        else:    # Error checking to make sure USER input Y or N only
+          repeat_exit_confirm = 'y'
+          print('Invalid Selection bro/sis! Please enter [Y] or [N] only.')
+          exit_confirm = input('\nAre you sure you want to EXIT GAME? [Y/N]: ')
+
+      
+        
+          
+    else:    # Error checking to make sure USER input 1, 2 or 3 only
+      print('Invalid Selection bro/sis! Please enter [1], [2] or [3] only')
+        
+        
+   
+    
